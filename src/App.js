@@ -1,24 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { GlobalStyle } from './Styles/GoblalStyle';
+import { Navbar } from './Navbar/Navbar';
+import { Banner } from './Banner/Banner';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <Navbar />
+      <Banner>
+        <h2>Las comidas mas piolas del Oeste</h2>
+        <p>Pedí online rápido y fácil</p>
+      </Banner>
+    </>
   );
 }
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { FoodGrid, FoodLabel, Food } from './FoodGrid';
 import { TagCard, TagMenu, TagImg } from './TagsMenu';
-import { Foods, arraySections } from '../data/data';
+import { Foods, arraySections, formatPrice } from '../data/data';
 
 const MenuStyled = styled.div`
   height: 1000px;
@@ -11,7 +11,7 @@ const MenuStyled = styled.div`
   z-index: 3;
 `;
 
-export const Menu = () => {
+export const Menu = ({ setOpenFood }) => {
   return (
     <MenuStyled>
       <h1>Menu</h1>
@@ -28,9 +28,10 @@ export const Menu = () => {
           <h3>{sectionName}</h3>
           <FoodGrid>
             {arrayFoods.map((food) => (
-              <Food img={food.img}>
+              <Food img={food.img} onClick={() => setOpenFood(food)}>
                 <FoodLabel>
                   <div>{food.name}</div>
+                  <div>{formatPrice(food.price)}</div>
                 </FoodLabel>
               </Food>
             ))}

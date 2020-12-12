@@ -19,4 +19,20 @@ export const Food = styled.div`
   background-image: ${({ img }) => `url(${img})`};
   background-position: center;
   background-size: cover;
+  filter: contrast(75%);
+  padding: 10px;
+  font-size: 25px;
+  margin-top: 5px;
+
+  border-radius: 7px;
+  transition-property: box-shadow margin-top;
+  transition-duration: 0.1s;
+  box-shadow: 0px 0px 2px 0px grey;
+
+  &:hover {
+    cursor: pointer;
+    filter: contrast(100%);
+    box-shadow: 0px 0px 15px 0px grey;
+    margin-top: 0px;
+  }
 `;

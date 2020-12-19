@@ -1,25 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { FoodGrid, FoodLabel, Food } from './FoodGrid';
 import { TagCard, TagMenu, TagImg } from './TagsMenu';
-import { Foods, arraySections, formatPrice } from '../data/data';
+
+import { formatPrice } from '../../utils/formatPrice';
+
+import { useSelector } from 'react-redux';
 
 const MenuStyled = styled.div`
   height: 1000px;
-  margin: 0px 400px 50px 20px;
+  margin: 0px 20px 50px 20px;
   z-index: 3;
 `;
 
 export const Menu = ({ setOpenFood }) => {
+  let Foods = useSelector((state) => state.products.foods);
+  const categories = useSelector((state) => state.categories.categories);
+  const [section, setSection] = useState(null);
+  if (section) {
+    Foods = { [section]: Foods[section] };
+  }
+
   return (
     <MenuStyled>
       <h1>Menu</h1>
       <TagMenu>
-        {arraySections.map((section) => (
-          <TagCard>
-            <TagImg img={section.imgTag} />
-            <p>{section.section}</p>
+        {section && (
+          <TagCard onClick={() => setSection(null)}>
+            <p>TODOS</p>
+          </TagCard>
+        )}
+        {categories.map((category) => (
+          <TagCard
+            onClick={() => setSection(category.section)}
+            selected={category.section === section}
+          >
+            <TagImg img={category.imgTag} />
+            <p>{category.section}</p>
           </TagCard>
         ))}
       </TagMenu>

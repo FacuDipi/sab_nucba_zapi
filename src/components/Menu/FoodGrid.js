@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Title } from '../Styles/Title';
+import { Title } from '../UI/Title';
 
 export const FoodGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 `;
 

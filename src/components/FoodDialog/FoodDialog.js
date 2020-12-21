@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FoodLabel } from '../Menu/FoodGrid';
-import { Title } from '../Styles/Title';
-import { formatPrice } from '../data/data';
-import { nucbazapiRed } from '../Styles/Colors';
+import { Title } from '../UI/Title';
+import { formatPrice } from '../../utils/formatPrice';
+import { nucbazapiRed, below } from '../../Styles/utilities';
+
+import { useDispatch } from 'react-redux';
+import * as cartActions from '../../redux/cart/cart-actions';
 
 const Dialog = styled.div`
   width: 500px;
@@ -36,6 +39,7 @@ export const DialogContent = styled.div`
   overflow: auto;
   min-height: 100px;
   max-height: 400px;
+  padding: 40px;
 `;
 export const DialogFooter = styled.div`
   box-shadow: 0px -2px 10px 0px gray;
@@ -53,6 +57,10 @@ export const ConfirmButton = styled(Title)`
   cursor: pointer;
   background-color: ${nucbazapiRed};
   text-align: center;
+  ${below.med`
+    background-color: blue;
+  `}
+
   &:hover {
     opacity: 0.7;
   }
@@ -61,7 +69,7 @@ export const ConfirmButton = styled(Title)`
   }
 `;
 
-const DialogShadow = styled.div`
+export const DialogShadow = styled.div`
   position: fixed;
   height: 100%;
   width: 100%;
@@ -70,15 +78,12 @@ const DialogShadow = styled.div`
   z-index: 4;
 `;
 
-const FoodDialogContainer = ({ openFood, setOpenFood, orders, setOrders }) => {
+const FoodDialogContainer = ({ openFood, setOpenFood }) => {
   const handlerClose = () => setOpenFood();
-
-  const order = {
-    ...openFood,
-  };
+  const dispatch = useDispatch();
 
   const addToOder = () => {
-    setOrders([...orders, order]);
+    dispatch(cartActions.addItem(openFood));
     handlerClose();
   };
 
@@ -90,7 +95,7 @@ const FoodDialogContainer = ({ openFood, setOpenFood, orders, setOrders }) => {
           <DialogBannerName>{openFood.name}</DialogBannerName>
         </DialogBanner>
         <DialogContent>
-          <div>algooo</div>
+          <div>{openFood.description}</div>
         </DialogContent>
         <DialogFooter>
           <ConfirmButton onClick={addToOder}>
